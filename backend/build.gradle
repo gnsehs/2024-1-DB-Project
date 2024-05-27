@@ -19,6 +19,10 @@ dependencies { // 구성 (e.g. implementation) + 의존성 이름
     runtimeOnly 'com.h2database:h2' // 인 메모리 데이터 베이스
     compileOnly 'org.projectlombok:lombok' // 롬복
     annotationProcessor 'org.projectlombok:lombok' // 애너테이션 처리
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+    testImplementation 'org.springframework.security:spring-security-test'
 }
 
 test {

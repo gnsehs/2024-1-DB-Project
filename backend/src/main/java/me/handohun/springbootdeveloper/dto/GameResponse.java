@@ -25,7 +25,7 @@ public class GameResponse {
         this.release_date = game.getRelease_date();
         this.made_by = game.getCompany().getName();
         this.age_rating = game.getAge_rating();
-        this.exclusive = game.isExclusive();
+        this.exclusive = game.getExclusive();
         // this.num_device =
     }
 }
