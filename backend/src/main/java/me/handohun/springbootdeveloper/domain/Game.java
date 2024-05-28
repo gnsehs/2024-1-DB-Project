@@ -29,7 +29,7 @@ public class Game {
     private int age_rating;
 
     @Column(name = "exclusive")
-    private boolean exclusive;
+    private Boolean exclusive;
 
 
 
