@@ -3,9 +3,11 @@ package me.handohun.springbootdeveloper.controller;
 import lombok.RequiredArgsConstructor;
 import me.handohun.springbootdeveloper.dto.AddUserRequest;
 import me.handohun.springbootdeveloper.service.UserService;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.client.RestTemplate;
 
 @RequiredArgsConstructor
 @Controller
@@ -36,5 +38,11 @@ public class UserViewController {
          */
     }
 
+    @PostMapping("/login")
+    public String login(@RequestBody AddUserRequest request) {
+        RestTemplate rt = new RestTemplate();
+        String url = "http://localhost:8080/login";
+        return rt.postForLocation(url,request).toString();
+    }
+    }
 
-}

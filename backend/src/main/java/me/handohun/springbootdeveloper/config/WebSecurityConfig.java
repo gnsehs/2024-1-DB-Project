@@ -52,8 +52,8 @@ public class WebSecurityConfig {
                         ).permitAll() // 누구나 접근 가능하게, 즉 /login등으로 요청이 오면 인증 인가 없이도 접근 가능
                                 .anyRequest().authenticated()) // 위에서 설정한 url외에는 인증이 성공된 상태여야 접근 가능
                 .formLogin(formLogin -> formLogin // 4. 폼 기반 로그인 설정
-                        .loginProcessingUrl("/login") // 로그인 페이지 경로 설정
                         .defaultSuccessUrl("/api/articles")) // 로그인이 완료되었을시 이동
+
                 .logout(logout -> logout // 5. 로그아웃 설정
                         .logoutSuccessUrl("/login") // 로그아웃 완료 되었을시 이동
                         .invalidateHttpSession(true) // 로그아웃 이후에 세션 전체 삭제
