@@ -1,5 +1,7 @@
 package me.handohun.springbootdeveloper.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import me.handohun.springbootdeveloper.dto.AddUserRequest;
 import me.handohun.springbootdeveloper.service.UserService;
@@ -13,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 public class UserViewController {
     private final UserService userService;
+    private final ObjectMapper objectMapper;
 
 //    @GetMapping("/login")
 //    public String login2() {
@@ -30,7 +33,8 @@ public class UserViewController {
 //    }
 
     @PostMapping("/signup")
-    public String signup(@RequestBody AddUserRequest request) {
+    public String signup(@RequestBody AddUserRequest request) throws JsonProcessingException {
+        System.out.println("TEST:: "+objectMapper.writeValueAsString(request));
         userService.save(request); // 회원가입 메서드 호출
         return "redirect:/login"; // 회원 가입이 완료된 이후에 로그인 페이지로 이동
         /*
