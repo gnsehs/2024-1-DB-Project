@@ -35,6 +35,4 @@ public class UserViewController {
         redirect: 접두사 -> 회원 가입 처리가 끝나면 강제로 /login URL에 해당하는 화면으로 이동
          */
     }
-
-
 }
