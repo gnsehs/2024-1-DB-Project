@@ -28,7 +28,7 @@ public class CompanyResponse {
         this.nation = company.getNation();
         this.founding_date = company.getFounding_date();
         this.ceo = company.getCeo();
-        this.numGames = company.getGames().size();
+        this.numGames = company.getGames().size(); // game_counting
 
     }
 }

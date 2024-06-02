@@ -2,8 +2,10 @@ package me.handohun.springbootdeveloper.controller;
 
 import lombok.RequiredArgsConstructor;
 import me.handohun.springbootdeveloper.dto.CompanyResponse;
+import me.handohun.springbootdeveloper.dto.DeviceResponse;
 import me.handohun.springbootdeveloper.dto.GameResponse;
 import me.handohun.springbootdeveloper.service.CompanyService;
+import me.handohun.springbootdeveloper.service.DeviceService;
 import me.handohun.springbootdeveloper.service.GameService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,7 @@ public class GameController {
 
     private final GameService gameService;
     private final CompanyService companyService;
+    private final DeviceService deviceService;
 
     @GetMapping("/games")
     public ResponseEntity<List<GameResponse>> findAllGames() {
@@ -36,5 +39,15 @@ public class GameController {
                 .toList();
 
         return ResponseEntity.ok().body(companys);
+    }
+
+    @GetMapping("/devices")
+    public ResponseEntity<List<DeviceResponse>> findAllDevice() {
+        List<DeviceResponse> devices = deviceService.findAll()
+                .stream()
+                .map(DeviceResponse::new)
+                .toList();
+
+        return ResponseEntity.ok().body(devices);
     }
 }

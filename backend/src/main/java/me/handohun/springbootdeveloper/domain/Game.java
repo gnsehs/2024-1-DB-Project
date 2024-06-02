@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 @Table(name = "game")
 @Entity // 엔티티
 @Getter
@@ -22,14 +25,17 @@ public class Game {
     private LocalDate release_date;
 
     @ManyToOne
-    @JoinColumn(name = "company_id")
+    @JoinColumn(name = "company_id") // made_by
     private Company company;
 
-    @Column(name = "age_rating",updatable = false)
+    @Column(name = "age_rating",updatable = false) // age
     private int age_rating;
 
-    @Column(name = "exclusive")
-    private Boolean exclusive;
+//    @Column(name = "exclusive")
+//    private Boolean exclusive;
+
+    @OneToMany(mappedBy = "game") // many to many
+    private List<GameOnDevice> gameOnDevices = new ArrayList<>();
 
 
 

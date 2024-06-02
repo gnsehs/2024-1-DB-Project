@@ -18,6 +18,8 @@ public class GameResponse {
     final private int age_rating;
     final private boolean exclusive;
 
+    private final int num_device;
+
     // final private int num_device;
 
     public GameResponse(Game game) {
@@ -25,7 +27,12 @@ public class GameResponse {
         this.release_date = game.getRelease_date();
         this.made_by = game.getCompany().getName();
         this.age_rating = game.getAge_rating();
-        this.exclusive = game.getExclusive();
+        if(game.getGameOnDevices().size() == 1) { // only
+            this.exclusive = true;
+        } else {
+            this.exclusive = false;
+        }
+        this.num_device = game.getGameOnDevices().size(); // num device
         // this.num_device =
     }
 }

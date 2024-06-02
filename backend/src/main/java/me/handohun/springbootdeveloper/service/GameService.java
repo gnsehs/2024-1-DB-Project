@@ -17,12 +17,18 @@ import java.util.List;
 public class GameService {
 
     private final GameRepository gameRepository;
+
     public List<Game> findAll() { // 테이블에 저장되어있는 모든 데이터 조회
         return gameRepository.findAll();
     }
 
     public long countByCompany(Company company) {
         return gameRepository.countByCompany(company);
+    }
+
+    public Game findById(Long id) {
+        return gameRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("not game found : " + id));
     }
 
 }
