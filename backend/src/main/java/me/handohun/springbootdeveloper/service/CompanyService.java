@@ -19,5 +19,9 @@ public class CompanyService {
         return companyRepository.findAll();
     }
 
+    public Company findById(Long id) {
+        return companyRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("not company found : " + id));
+    }
+
 
 }

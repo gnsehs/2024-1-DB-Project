@@ -1,15 +1,13 @@
 package me.handohun.springbootdeveloper.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @Entity // 엔티티
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // 기본생성자를 별도 코드 없이 생성
 public class Article {
     
@@ -28,9 +26,9 @@ public class Article {
 //    @JoinColumn(name = "member_id")
 //    private Member member;
 //
-//    @OneToOne
-//    @JoinColumn(name = "game")
-//    private Game game;
+    @ManyToOne
+    @JoinColumn(name = "game_id")
+    private Game game;
 //
 //    @OneToMany(mappedBy = "article",cascade = CascadeType.REMOVE)
 //    private List<Comment> comments;
@@ -43,9 +41,10 @@ public class Article {
     Article.builder().title().content().build();
      */
     @Builder // 빌더 패턴으로 객체 생성
-    public Article(String title, String content) {
+    public Article(String title, String content, Game game) {
         this.title = title;
         this.content = content;
+        this.game = game;
     }
 
     public void update(String title, String content) {

@@ -3,9 +3,11 @@ package me.handohun.springbootdeveloper.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.handohun.springbootdeveloper.domain.Article;
+import me.handohun.springbootdeveloper.domain.Game;
 import me.handohun.springbootdeveloper.dto.AddArticleRequest;
 import me.handohun.springbootdeveloper.dto.UpdateArticleRequest;
 import me.handohun.springbootdeveloper.repository.BlogRepository;
+import me.handohun.springbootdeveloper.repository.GameRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,10 +16,15 @@ import java.util.List;
 @Service // 해당 클래스를 빈으로 서블릿 컨테이너에 등록ㅁ
 public class BlogService {
     private final BlogRepository blogRepository;
+    private final GameRepository gameRepository;
 
     // 블로그 글 추가 메서드
-    public Article save(AddArticleRequest request) { // article db에 저장 
-        return blogRepository.save(request.toEntity()); // save()는 JPArepo.. 에서 지원
+    public Article save(AddArticleRequest request) {
+        Article tempArticle = request.toEntity();
+        tempArticle.setGame(gameRepository.findById(request.getGame_id())
+                .orElseThrow(() -> new IllegalArgumentException("not game found : " + request.getGame_id())));// article db에 저장
+        blogRepository.save(tempArticle); // save()는 JPArepo.. 에서 지원
+        return tempArticle;
     }
 
     // RequiredArgsConstructor 없다면

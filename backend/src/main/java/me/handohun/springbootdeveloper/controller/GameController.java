@@ -1,6 +1,9 @@
 package me.handohun.springbootdeveloper.controller;
 
 import lombok.RequiredArgsConstructor;
+import me.handohun.springbootdeveloper.domain.Company;
+import me.handohun.springbootdeveloper.domain.Device;
+import me.handohun.springbootdeveloper.domain.Game;
 import me.handohun.springbootdeveloper.dto.CompanyResponse;
 import me.handohun.springbootdeveloper.dto.DeviceResponse;
 import me.handohun.springbootdeveloper.dto.GameResponse;
@@ -9,6 +12,7 @@ import me.handohun.springbootdeveloper.service.DeviceService;
 import me.handohun.springbootdeveloper.service.GameService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -31,6 +35,14 @@ public class GameController {
         return ResponseEntity.ok().body(games);
     }
 
+    @GetMapping("/games/{id}") // 이름이 파라미터 이름과 같다면 자동 매칭
+    public ResponseEntity<GameResponse> findGame(@PathVariable Long id) {
+        Game game = gameService.findById(id);
+
+        return ResponseEntity.ok()
+                .body(new GameResponse(game));
+    }
+
     @GetMapping("/gamecompanys")
     public ResponseEntity<List<CompanyResponse>> findAllCompany() {
         List<CompanyResponse> companys = companyService.findAll()
@@ -40,6 +52,14 @@ public class GameController {
 
         return ResponseEntity.ok().body(companys);
     }
+    @GetMapping("/gamecompanys/{id}") // 이름이 파라미터 이름과 같다면 자동 매칭
+    public ResponseEntity<CompanyResponse> findCompany(@PathVariable Long id) {
+        Company company = companyService.findById(id);
+
+        return ResponseEntity.ok()
+                .body(new CompanyResponse(company));
+    }
+
 
     @GetMapping("/devices")
     public ResponseEntity<List<DeviceResponse>> findAllDevice() {
@@ -49,5 +69,13 @@ public class GameController {
                 .toList();
 
         return ResponseEntity.ok().body(devices);
+    }
+
+    @GetMapping("/devices/{id}") // 이름이 파라미터 이름과 같다면 자동 매칭
+    public ResponseEntity<DeviceResponse> findDevice(@PathVariable Long id) {
+        Device device = deviceService.findById(id);
+
+        return ResponseEntity.ok()
+                .body(new DeviceResponse(device));
     }
 }

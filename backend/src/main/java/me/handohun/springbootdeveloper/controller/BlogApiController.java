@@ -21,10 +21,10 @@ public class BlogApiController {
     private final BlogService blogService;
 
     @PostMapping("/api/articles") // HTTP 메서드가 Post일때 전달받은 URL과 동일하면 메서드로 매핑
-    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request) { // RequestBody로 요청 본문값 매핑
+    public ResponseEntity<ArticleResponse> addArticle(@RequestBody AddArticleRequest request) { // RequestBody로 요청 본문값 매핑
         Article savedArticle = blogService.save(request);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedArticle); // 201 created
+        ArticleResponse tempResponse = new ArticleResponse(savedArticle);
+        return ResponseEntity.status(HttpStatus.CREATED).body(tempResponse); // 201 created
     }
 
     /*

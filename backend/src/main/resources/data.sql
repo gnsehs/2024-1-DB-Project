@@ -1,7 +1,4 @@
-INSERT INTO article (title, content) VALUES
-('안녕하세요', '1111111'),
-('여기 망헀나요', '22222222'),
-('게임추천해주세요', '3333333');
+
 
 INSERT INTO company (name, nation, founding_date, ceo) VALUES
 ('A', 'Korea','2000-01-01','Kan'),
@@ -36,4 +33,9 @@ INSERT INTO game_on_device (game_id, device_id) VALUES
 (6,1),
 (6,3),
 (7,3);
+
+INSERT INTO article (title, content, game_id) VALUES
+('안녕하세요', '1111111', 3),
+('여기 망헀나요', '22222222', 2),
+('게임추천해주세요', '3333333', 4);
 
