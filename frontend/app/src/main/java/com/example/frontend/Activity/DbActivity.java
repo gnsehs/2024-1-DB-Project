@@ -74,7 +74,7 @@ public class DbActivity extends AppCompatActivity {
                     content += "Name: " + company.getName() + "\n";
                     content += "Nation: " + company.getNation() + "\n";
                     content += "Founding Date: " + company.getDate() + "\n";
-                    content += "CEO: " + company.getCeo() + "\n";
+                    content += "CEO is: " + company.getCeo() + "\n";
                     content += "Number of Games: " + company.getNum() + "\n\n";
                     textViewResult.append(content);
                 }
