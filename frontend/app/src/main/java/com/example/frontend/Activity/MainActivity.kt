@@ -1,10 +1,11 @@
-package com.example.frontend
+package com.example.frontend.Activity
 
 
 import android.os.Bundle
 import android.content.Intent
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.example.frontend.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

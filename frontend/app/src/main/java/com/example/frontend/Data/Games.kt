@@ -1,4 +1,4 @@
-package com.example.frontend
+package com.example.frontend.Data
 
 class Games {
     private lateinit var game_name : String

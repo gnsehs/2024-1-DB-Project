@@ -1,4 +1,4 @@
-package me.handohun.springbootdeveloper.controller;
+/*package me.handohun.springbootdeveloper.controller;
 
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,9 +27,6 @@ public class UserApiController {
 //    public String signup(@RequestBody AddUserRequest request) {
 //        userService.save(request); // 회원가입 메서드 호출
 //        return "redirect:/login"; // 회원 가입이 완료된 이후에 로그인 페이지로 이동
-//        /*
-//        redirect: 접두사 -> 회원 가입 처리가 끝나면 강제로 /login URL에 해당하는 화면으로 이동
-//         */
 //    }
 
     @GetMapping("/logout")
@@ -47,4 +44,4 @@ public class UserApiController {
 
 
 
-}
+}*/

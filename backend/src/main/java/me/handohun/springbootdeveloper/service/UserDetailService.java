@@ -1,4 +1,4 @@
-package me.handohun.springbootdeveloper.service;
+/*package me.handohun.springbootdeveloper.service;
 
 
 import lombok.RequiredArgsConstructor;
@@ -17,4 +17,4 @@ public class UserDetailService implements UserDetailsService { // 스프링 시�
     public UserDetails loadUserByUsername(String username) { // 사용자 정보를 가져오는 로직
         return userRepository.findByUsername(username)    .orElseThrow(() -> new IllegalArgumentException(username));
     }
-}
+}*/

@@ -1,4 +1,4 @@
-package com.example.frontend
+package com.example.frontend.Activity
 
 import android.os.Bundle
 import android.webkit.WebChromeClient
@@ -6,6 +6,7 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
+import com.example.frontend.R
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var mWebView: WebView

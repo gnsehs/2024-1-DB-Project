@@ -1,8 +1,14 @@
-package com.example.frontend;
+package com.example.frontend.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.example.frontend.Data.GameCompany;
+import com.example.frontend.Data.Games;
+import com.example.frontend.JsonPlaceHolderApi;
+import com.example.frontend.R;
+
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;

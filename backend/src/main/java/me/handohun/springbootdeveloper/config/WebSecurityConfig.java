@@ -1,7 +1,4 @@
-package me.handohun.springbootdeveloper.config;
-/*
-실제 인증 처리를 하는 시큐리티 설정 파일
- */
+/*package me.handohun.springbootdeveloper.config;
 
 import lombok.RequiredArgsConstructor;
 import me.handohun.springbootdeveloper.service.UserDetailService;
@@ -35,10 +32,6 @@ public class WebSecurityConfig {
                 .requestMatchers(toH2Console()) // h2-console 하위 url
                 .requestMatchers(new AntPathRequestMatcher("/static/**"));
     }
-    /*
-    인증 인가 서비스를 모든 곳에 적용하지는 않는다.
-    일반적으로 정적 리소스(이미지, html)에 설정
-     */
 
     // 2. 특정 HTTP 요청에 대한 웹 기반 보안 구성
     @Bean
@@ -86,4 +79,4 @@ public class WebSecurityConfig {
 
 
 
-}
+}*/
