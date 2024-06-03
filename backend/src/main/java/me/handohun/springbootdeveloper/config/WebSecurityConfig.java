@@ -1,4 +1,4 @@
-/*package me.handohun.springbootdeveloper.config;
+package me.handohun.springbootdeveloper.config;
 
 import lombok.RequiredArgsConstructor;
 import me.handohun.springbootdeveloper.service.UserDetailService;
@@ -79,4 +79,4 @@ public class WebSecurityConfig {
 
 
 
-}*/
+}

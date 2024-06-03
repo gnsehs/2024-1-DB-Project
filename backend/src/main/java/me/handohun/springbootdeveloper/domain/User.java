@@ -1,4 +1,4 @@
-/*package me.handohun.springbootdeveloper.domain;
+package me.handohun.springbootdeveloper.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -81,4 +81,4 @@ public class User implements UserDetails { // UserDetail을 상속받아 인증 
 
 
 
-}*/
+}

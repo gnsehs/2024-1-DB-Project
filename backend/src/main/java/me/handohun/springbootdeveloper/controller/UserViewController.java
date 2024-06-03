@@ -1,4 +1,4 @@
-/*package me.handohun.springbootdeveloper.controller;
+package me.handohun.springbootdeveloper.controller;
 
 import lombok.RequiredArgsConstructor;
 import me.handohun.springbootdeveloper.dto.AddUserRequest;
@@ -33,4 +33,4 @@ public class UserViewController {
         return "redirect:/login"; // 회원 가입이 완료된 이후에 로그인 페이지로 이동
 
     }
-}*/
+}

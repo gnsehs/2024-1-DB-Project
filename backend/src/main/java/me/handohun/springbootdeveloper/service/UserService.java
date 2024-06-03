@@ -1,4 +1,4 @@
-/*package me.handohun.springbootdeveloper.service;
+package me.handohun.springbootdeveloper.service;
 
 
 import lombok.RequiredArgsConstructor;
@@ -20,4 +20,4 @@ public class UserService {
                 .password(bCryptPasswordEncoder.encode(dto.getPassword())) // 패스워드 암호화
                 .build()).getId();
     }
-}*/
+}
