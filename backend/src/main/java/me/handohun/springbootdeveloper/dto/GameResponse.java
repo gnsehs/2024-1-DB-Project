@@ -11,7 +11,7 @@ import java.time.LocalDate;
 
 @Getter
 public class GameResponse {
-    final private Long game_id;
+
     final private String game_name;
     final private LocalDate release_date;
     final private String made_by;
@@ -23,7 +23,6 @@ public class GameResponse {
     // final private int num_device;
 
     public GameResponse(Game game) {
-        this.game_id = game.getId();
         this.game_name = game.getGame_name();
         this.release_date = game.getRelease_date();
         this.made_by = game.getCompany().getName();
