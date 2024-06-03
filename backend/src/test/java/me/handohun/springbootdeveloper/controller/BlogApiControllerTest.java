@@ -74,6 +74,7 @@ class BlogApiControllerTest {
 
         // 객체를 JSON으로 직렬화
         final String requestBody = objectMapper.writeValueAsString(userRequest);
+        System.out.println("Test::"+requestBody);
 
         // when
         ResultActions result = mockMvc.perform(post(url)
