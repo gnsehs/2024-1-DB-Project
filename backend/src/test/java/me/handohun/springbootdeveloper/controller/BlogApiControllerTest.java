@@ -3,9 +3,11 @@ package me.handohun.springbootdeveloper.controller;
 import static org.junit.jupiter.api.Assertions.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.handohun.springbootdeveloper.domain.Article;
+import me.handohun.springbootdeveloper.domain.Game;
 import me.handohun.springbootdeveloper.dto.AddArticleRequest;
 import me.handohun.springbootdeveloper.dto.UpdateArticleRequest;
 import me.handohun.springbootdeveloper.repository.BlogRepository;
+import me.handohun.springbootdeveloper.repository.GameRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -51,6 +53,9 @@ class BlogApiControllerTest {
     @Autowired
     BlogRepository blogRepository;
 
+    @Autowired
+    GameRepository gameRepository;
+
     @BeforeEach // 테스트 실행 전 실행하는 메서드
     public void mockMvcSetup() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
@@ -65,7 +70,7 @@ class BlogApiControllerTest {
         final String url = "/api/articles";
         final String title = "title";
         final String content = "content";
-        final AddArticleRequest userRequest = new AddArticleRequest(title,content);
+        final AddArticleRequest userRequest = new AddArticleRequest(title,content,1L);
 
         // 객체를 JSON으로 직렬화
         final String requestBody = objectMapper.writeValueAsString(userRequest);
@@ -86,6 +91,7 @@ class BlogApiControllerTest {
         assertThat(articles.size()).isEqualTo(1); // 크기가 1인지 검증
         assertThat(articles.get(0).getTitle()).isEqualTo(title);
         assertThat(articles.get(0).getContent()).isEqualTo(content);
+        assertThat(articles.get(0).getGame().getId()).isEqualTo(1L);
 
     }
 
@@ -96,21 +102,26 @@ class BlogApiControllerTest {
         final String url = "/api/articles";
         final String title = "title";
         final String content = "content";
+        final Long game_id = 1L;
 
-        blogRepository.save(Article.builder()
+        Article savedArticle = blogRepository.save(Article.builder()
                 .title(title)
                 .content(content)
+                .game(gameRepository.findById(game_id).orElseThrow(() -> new IllegalArgumentException("not game found : " + game_id)))
                 .build());
 
         // when
         final ResultActions resultActions = mockMvc.perform(get(url)
                 .accept(MediaType.APPLICATION_JSON));
 
+        Game tempGame = gameRepository.findById(game_id).orElseThrow(() -> new IllegalArgumentException("not game found : " + game_id));
+
         // then
         resultActions
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].content").value(content))
-                .andExpect(jsonPath("$[0].title").value(title));
+                .andExpect(jsonPath("$[0].title").value(title))
+                .andExpect(jsonPath("$[0].game_name").value(tempGame.getGame_name()));
     }
 
 
@@ -121,20 +132,24 @@ class BlogApiControllerTest {
         final String url = "/api/articles/{id}";
         final String title = "title";
         final String content = "content";
+        final Long game_id = 1L;
 
         Article savedArticle = blogRepository.save(Article.builder()
                 .title(title)
                 .content(content)
+                .game(gameRepository.findById(game_id).orElseThrow(() -> new IllegalArgumentException("not game found : " + game_id)))
                 .build());
 
         // when
         final ResultActions resultActions = mockMvc.perform(get(url, savedArticle.getId()));
 
+        Game tempGame = gameRepository.findById(game_id).orElseThrow(() -> new IllegalArgumentException("not game found : " + game_id));
         // then
         resultActions
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content").value(content))
-                .andExpect(jsonPath("$.title").value(title));
+                .andExpect(jsonPath("$.title").value(title))
+                .andExpect(jsonPath("$.game_name").value(tempGame.getGame_name()));
     }
 
     @DisplayName("deleteArticle: 블로그 글 삭제에 성공한다.")
@@ -167,11 +182,14 @@ class BlogApiControllerTest {
         final String url = "/api/articles/{id}";
         final String title = "title";
         final String content = "content";
+        final Long game_id = 1L;
 
         Article savedArticle = blogRepository.save(Article.builder()
                 .content(content)
                 .title(title)
+                .game(gameRepository.findById(game_id).orElseThrow(() -> new IllegalArgumentException("not game found : " + game_id)))
                 .build());
+
 
         final String newTitle = "new title";
         final String newContent = "new content";
