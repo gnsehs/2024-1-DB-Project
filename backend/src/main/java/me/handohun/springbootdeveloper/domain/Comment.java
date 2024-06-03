@@ -30,7 +30,7 @@ public class Comment {
 
     @CreatedDate
     @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt; // test
 
     @ManyToOne
     private Article article;
