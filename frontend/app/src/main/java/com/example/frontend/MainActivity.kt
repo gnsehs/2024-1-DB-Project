@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
 
         val LoginButton: Button = findViewById(R.id.loginbutton)
         val dbButton: Button = findViewById(R.id.dbbutton)
+        val signupButton: Button = findViewById(R.id.signupbutton)
 
         LoginButton.setOnClickListener {
             // cctvbutton을 클릭했을 때 CctvActivity를 시작합니다.
@@ -23,6 +24,11 @@ class MainActivity : AppCompatActivity() {
         dbButton.setOnClickListener {
             // cctvbutton을 클릭했을 때 CctvActivity를 시작합니다.
             var intent = Intent(this@MainActivity, DbActivity::class.java)
+            startActivity(intent)
+        }
+
+        signupButton.setOnClickListener{
+            var intent = Intent(this@MainActivity, SignupActivity::class.java)
             startActivity(intent)
         }
     }
