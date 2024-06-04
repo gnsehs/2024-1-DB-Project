@@ -552,8 +552,8 @@ INSERT INTO game_on_device (game_id, device_id) VALUES
 (249, 8),
 (250, 8);
 
-INSERT INTO article (title, content, game_id) VALUES
-('안녕하세요', '1111111', 3),
-('여기 망헀나요', '22222222', 2),
-('게임추천해주세요', '3333333', 4);
+INSERT INTO article (author, title, content, game_id) VALUES
+('user1','안녕하세요', '1111111', 3),
+('user2','여기 망헀나요', '22222222', 2),
+('user3','게임추천해주세요', '3333333', 4);
 

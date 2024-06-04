@@ -19,8 +19,8 @@ public class BlogService {
     private final GameRepository gameRepository;
 
     // 블로그 글 추가 메서드
-    public Article save(AddArticleRequest request) {
-        Article tempArticle = request.toEntity();
+    public Article save(AddArticleRequest request, String userName) {
+        Article tempArticle = request.toEntity(userName);
         tempArticle.setGame(gameRepository.findById(request.getGame_id())
                 .orElseThrow(() -> new IllegalArgumentException("not game found : " + request.getGame_id())));// article db에 저장
         blogRepository.save(tempArticle); // save()는 JPArepo.. 에서 지원

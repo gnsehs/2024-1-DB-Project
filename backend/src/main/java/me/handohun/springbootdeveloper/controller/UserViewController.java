@@ -30,8 +30,9 @@ public class UserViewController {
 //    }
 
     @PostMapping("/signup")
-    public Long signup(@RequestBody AddUserRequest request) {
-        return userService.save(request); // 회원 가입이 완료된 이후에 로그인 페이지로 이동
+    public ResponseEntity<Long> signup(@RequestBody AddUserRequest request) {
+        Long id = userService.save(request);
+        return ResponseEntity.ok().body(id);  // 회원 가입이 완료된 이후에 로그인 페이지로 이동
 
     }
 
