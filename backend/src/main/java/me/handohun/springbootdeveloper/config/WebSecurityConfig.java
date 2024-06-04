@@ -1,6 +1,8 @@
 package me.handohun.springbootdeveloper.config;
 
 import lombok.RequiredArgsConstructor;
+import me.handohun.springbootdeveloper.config.jwt.TokenAuthenticationFilter;
+import me.handohun.springbootdeveloper.config.jwt.TokenProvider;
 import me.handohun.springbootdeveloper.service.UserDetailService;
 import me.handohun.springbootdeveloper.service.UserService;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
@@ -24,6 +27,7 @@ import static org.springframework.boot.autoconfigure.security.servlet.PathReques
 public class WebSecurityConfig {
 
     private final UserDetailService userService;
+    private final TokenProvider tokenProvider;
 
     // 1. 스프링 시큐리티 기능 비활성화
     @Bean
@@ -44,9 +48,7 @@ public class WebSecurityConfig {
                                 new AntPathRequestMatcher("/user")
                         ).permitAll() // 누구나 접근 가능하게, 즉 /login등으로 요청이 오면 인증 인가 없이도 접근 가능
                                 .anyRequest().authenticated()) // 위에서 설정한 url외에는 인증이 성공된 상태여야 접근 가능
-                .formLogin(formLogin -> formLogin // 4. 폼 기반 로그인 설정
-                        .defaultSuccessUrl("/api/articles")) // 로그인이 완료되었을시 이동
-
+                .addFilterBefore(new TokenAuthenticationFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class)
                 .logout(logout -> logout // 5. 로그아웃 설정
                         .logoutSuccessUrl("/login") // 로그아웃 완료 되었을시 이동
                         .invalidateHttpSession(true) // 로그아웃 이후에 세션 전체 삭제
