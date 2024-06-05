@@ -556,3 +556,6 @@ INSERT INTO article (author, title, content, game_id) VALUES
 ('user2','여기 망헀나요', '22222222', 2),
 ('user3','게임추천해주세요', '3333333', 4);
 
+INSERT INTO comments (article_id, author, content, created_at) VALUES
+(1,'user4','comment 1',NOW())
+

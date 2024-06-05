@@ -28,9 +28,9 @@ public class Article {
     @ManyToOne
     @JoinColumn(name = "game_id")
     private Game game;
-//
-//    @OneToMany(mappedBy = "article",cascade = CascadeType.REMOVE)
-//    private List<Comment> comments;
+
+    @OneToMany(mappedBy = "article",cascade = CascadeType.REMOVE)
+    private List<Comment> comments;
 
 
 

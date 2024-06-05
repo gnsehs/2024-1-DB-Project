@@ -3,10 +3,13 @@ package me.handohun.springbootdeveloper.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.handohun.springbootdeveloper.domain.Article;
+import me.handohun.springbootdeveloper.domain.Comment;
 import me.handohun.springbootdeveloper.domain.Game;
 import me.handohun.springbootdeveloper.dto.AddArticleRequest;
+import me.handohun.springbootdeveloper.dto.AddCommentRequest;
 import me.handohun.springbootdeveloper.dto.UpdateArticleRequest;
 import me.handohun.springbootdeveloper.repository.BlogRepository;
+import me.handohun.springbootdeveloper.repository.CommentRepository;
 import me.handohun.springbootdeveloper.repository.GameRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,7 @@ import java.util.List;
 public class BlogService {
     private final BlogRepository blogRepository;
     private final GameRepository gameRepository;
+    private final CommentRepository commentRepository;
 
     // 블로그 글 추가 메서드
     public Article save(AddArticleRequest request, String userName) {
@@ -56,6 +60,13 @@ public class BlogService {
         article.update(request.getTitle(),request.getContent()); // request dto 를 통해 업데이트 하기
 
         return article;
+    }
+
+    public Comment addComment(AddCommentRequest request, String userName) {
+        Article article = blogRepository.findById(request.getArticleId())
+                .orElseThrow(() -> new IllegalArgumentException("not found " + request.getArticleId()));
+
+        return commentRepository.save(request.toEntity(userName,article));
     }
 
 }
