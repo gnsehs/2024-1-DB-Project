@@ -1,7 +1,8 @@
 package com.example.frontend
 
 import com.example.frontend.Data.Article
-import com.example.frontend.Data.GameCompany
+import com.example.frontend.Data.Devices
+import com.example.frontend.Data.Gamecompanys
 import com.example.frontend.Data.Games
 import com.example.frontend.Data.User
 import org.json.JSONObject
@@ -16,10 +17,13 @@ import retrofit2.http.Query
 
 public interface JsonPlaceHolderApi {
     @GET("gamecompanys")
-    fun getGameCompanies(): Call<List<GameCompany>>
+    fun getGameCompanies(): Call<List<Gamecompanys>>
 
-    @GET("games")
+    @GET("/games")
     fun getGames(): Call<List<Games>>
+
+    @GET("devices")
+    fun getDevices(): Call<List<Devices>>
 
     @FormUrlEncoded
     @POST("/signup")
