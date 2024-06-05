@@ -5,63 +5,58 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.frontend.Data.User
 import com.example.frontend.R
-import okhttp3.*
-import org.json.JSONObject
-import java.io.IOException
+import com.example.frontend.RetrofitBuilder
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SignupActivity : AppCompatActivity() {
-
-    private lateinit var userIdEditText: EditText
-    private lateinit var userPwEditText: EditText
-    private lateinit var signupButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.signup)
 
-        userIdEditText = findViewById(R.id.user_id)
-        userPwEditText = findViewById(R.id.user_pw)
-        signupButton = findViewById(R.id.signupbutton)
+        val IdText = findViewById<EditText>(R.id.user_id)
+        val PasswordText = findViewById<EditText>(R.id.user_pw)
+        val SignupButton = findViewById<Button>(R.id.signupbutton)
 
-        signupButton.setOnClickListener{
-            val input = HashMap<Any?, Any?>()
-            input["username"] = userIdEditText.text.toString()
-            input["password"] = userPwEditText.text.toString()
+        Toast.makeText(this@SignupActivity, "나이스", Toast.LENGTH_SHORT).show()
 
-            val jsonObject = JSONObject(input)
+        SignupButton.setOnClickListener {
+            val id = IdText.text.toString()
+            val password = PasswordText.text.toString()
 
-            Toast.makeText(applicationContext, jsonObject.toString(), Toast.LENGTH_SHORT).show()
+            if (id.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "모든 필드를 채워주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            try {
+                val signup = User(id,password)
+                Signup(signup)
+            } catch (e : Exception) {
+                Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
+            }
         }
+
     }
+    private fun Signup(signup: User) {
 
-    private fun sendDataToServer(jsonData: JSONObject) {
-        val url = "http://10.0.2.2:8080/"
+        val call = RetrofitBuilder.api.signup(signup)
 
-        val client = OkHttpClient()
-        val body = RequestBody.create(MediaType.parse("application/json"), jsonData.toString())
-        val request = Request.Builder()
-            .url(url)
-            .post(body)
-            .build()
-
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                e.printStackTrace()
-                runOnUiThread {
-                    Toast.makeText(applicationContext, "서버에 연결할 수 없습니다.", Toast.LENGTH_SHORT).show()
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Toast.makeText(this@SignupActivity, "회원가입 성공", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this@SignupActivity, "회원가입 실패", Toast.LENGTH_SHORT).show()
                 }
             }
 
-            override fun onResponse(call: Call, response: Response) {
-                response.use {
-                    if (!response.isSuccessful) throw IOException("Unexpected code $response")
-
-                    val responseData = response.body()?.string()
-                    runOnUiThread {
-                        Toast.makeText(applicationContext, "서버 응답: $responseData", Toast.LENGTH_SHORT).show()
-                    }
-                }
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Toast.makeText(this@SignupActivity, "Error: " + t.message, Toast.LENGTH_SHORT).show()
             }
         })
     }

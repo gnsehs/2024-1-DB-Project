@@ -25,9 +25,8 @@ public interface JsonPlaceHolderApi {
     @GET("devices")
     fun getDevices(): Call<List<Devices>>
 
-    @FormUrlEncoded
     @POST("/signup")
-    fun getPostList(@FieldMap param: JSONObject): Call<User>
+    fun signup(@Body user: User): Call<Void>
 
     @POST("/login")
     fun login(@Query("username") username: String? = null,
