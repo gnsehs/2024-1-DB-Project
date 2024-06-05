@@ -45,7 +45,7 @@ public class BlogApiController {
     }
 
     @GetMapping("/api/articles/{id}") // 이름이 파라미터 이름과 같다면 자동 매칭
-    public ResponseEntity<ArticleResponse> findArticle(@PathVariable long id) {
+    public ResponseEntity<ArticleResponse> findArticle(@PathVariable Long id) {
         Article article = blogService.findById(id);
 
         return ResponseEntity.ok()
@@ -57,14 +57,14 @@ public class BlogApiController {
      */
 
     @DeleteMapping("/api/articles/{id}")
-    public ResponseEntity<Void> deleteArticle(@PathVariable long id) {
+    public ResponseEntity<Void> deleteArticle(@PathVariable Long id) {
         blogService.delete(id);
 
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/api/articles/{id}")
-    public ResponseEntity<ArticleResponse> updateArticle(@PathVariable long id
+    public ResponseEntity<ArticleResponse> updateArticle(@PathVariable Long id
             , @RequestBody UpdateArticleRequest request) {
 
         Article updatedArticle = blogService.update(id,request);
@@ -73,10 +73,21 @@ public class BlogApiController {
     }
     // crud
 
-    @PostMapping("/api/comments")
-    private ResponseEntity<AddCommentResponse> addComment (@RequestBody AddCommentRequest request, Principal principal) {
+    @PostMapping("/api/comments") // request에 article아이디 넣어서 그 article에 댓글 달기
+    public ResponseEntity<AddCommentResponse> addComment (@RequestBody AddCommentRequest request, Principal principal) {
         Comment savedComment = blogService.addComment(request,principal.getName());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new AddCommentResponse(savedComment));
     }
+
+    @GetMapping("api/comments/{id}")
+    public ResponseEntity<List<AddCommentResponse>> getCommentsByArticleId(@PathVariable Long id) {
+        List<AddCommentResponse> commentResponses = blogService.findCommentsByArticleId(id)
+                .stream()
+                .map(AddCommentResponse::new)
+                .toList();
+
+        return ResponseEntity.ok().body(commentResponses);
+    }
+
 }

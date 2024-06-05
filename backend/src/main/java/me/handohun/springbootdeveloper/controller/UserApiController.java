@@ -37,8 +37,8 @@ public class UserApiController {
     }
 
     @GetMapping("/username") // 현재 로그인한 user정보 가져오기
-    public ResponseEntity<String> currentUserName(@AuthenticationPrincipal User user) {
-        return ResponseEntity.ok().body(user.getUsername());
+    public ResponseEntity<String> currentUserName(Principal principal) {
+        return ResponseEntity.ok().body(principal.getName());
     }
 
 

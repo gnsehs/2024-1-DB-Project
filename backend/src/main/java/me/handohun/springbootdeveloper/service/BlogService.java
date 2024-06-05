@@ -69,4 +69,11 @@ public class BlogService {
         return commentRepository.save(request.toEntity(userName,article));
     }
 
+    public List<Comment> findCommentsByArticleId(Long article_id) {
+        Article tempArticle = blogRepository.findById(article_id)
+                .orElseThrow(() -> new IllegalArgumentException("not found " + article_id));
+
+        return tempArticle.getComments();
+    }
+
 }
