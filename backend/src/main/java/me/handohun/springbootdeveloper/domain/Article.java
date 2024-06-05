@@ -21,17 +21,16 @@ public class Article {
     
     @Column(name = "content", nullable = false)
     private String content;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "member_id")
-//    private Member member;
-//
+
+    @Column(name = "author",nullable = false)
+    private String author;
+
     @ManyToOne
     @JoinColumn(name = "game_id")
     private Game game;
-//
-//    @OneToMany(mappedBy = "article",cascade = CascadeType.REMOVE)
-//    private List<Comment> comments;
+
+    @OneToMany(mappedBy = "article",cascade = CascadeType.REMOVE)
+    private List<Comment> comments;
 
 
 
@@ -41,10 +40,11 @@ public class Article {
     Article.builder().title().content().build();
      */
     @Builder // 빌더 패턴으로 객체 생성
-    public Article(String title, String content, Game game) {
+    public Article(String author, String title, String content, Game game) {
         this.title = title;
         this.content = content;
         this.game = game;
+        this.author = author;
     }
 
     public void update(String title, String content) {

@@ -2,14 +2,14 @@ package me.handohun.springbootdeveloper.controller;
 
 import lombok.RequiredArgsConstructor;
 import me.handohun.springbootdeveloper.domain.Article;
-import me.handohun.springbootdeveloper.dto.AddArticleRequest;
-import me.handohun.springbootdeveloper.dto.ArticleResponse;
-import me.handohun.springbootdeveloper.dto.UpdateArticleRequest;
+import me.handohun.springbootdeveloper.domain.Comment;
+import me.handohun.springbootdeveloper.dto.*;
 import me.handohun.springbootdeveloper.service.BlogService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 
@@ -21,8 +21,8 @@ public class BlogApiController {
     private final BlogService blogService;
 
     @PostMapping("/api/articles") // HTTP 메서드가 Post일때 전달받은 URL과 동일하면 메서드로 매핑
-    public ResponseEntity<ArticleResponse> addArticle(@RequestBody AddArticleRequest request) { // RequestBody로 요청 본문값 매핑
-        Article savedArticle = blogService.save(request);
+    public ResponseEntity<ArticleResponse> addArticle(@RequestBody AddArticleRequest request, Principal principal) { // RequestBody로 요청 본문값 매핑
+        Article savedArticle = blogService.save(request,principal.getName());
         ArticleResponse tempResponse = new ArticleResponse(savedArticle);
         return ResponseEntity.status(HttpStatus.CREATED).body(tempResponse); // 201 created
     }
@@ -73,4 +73,10 @@ public class BlogApiController {
     }
     // crud
 
+    @PostMapping("/api/comments")
+    private ResponseEntity<AddCommentResponse> addComment (@RequestBody AddCommentRequest request, Principal principal) {
+        Comment savedComment = blogService.addComment(request,principal.getName());
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(new AddCommentResponse(savedComment));
+    }
 }

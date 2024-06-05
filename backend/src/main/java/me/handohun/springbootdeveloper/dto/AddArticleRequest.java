@@ -18,10 +18,13 @@ public class AddArticleRequest {
     private String content;
     private Long game_id;
 
-    public Article toEntity() { // 빌더 패턴을 이용해 DTO 를 엔티티로 만들어주는 메서드 추후에 글을 추가할 때 저장할 엔티티로 변환
+    public Article toEntity(String author) { // 빌더 패턴을 이용해 DTO 를 엔티티로 만들어주는 메서드 추후에 글을 추가할 때 저장할 엔티티로 변환
         return Article.builder()
                 .title(title)
                 .content(content)
+                .author(author)
                 .build();
+
+        // 게임은 서비스 단에서 추가
     }
 }

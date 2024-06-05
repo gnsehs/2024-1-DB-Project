@@ -29,11 +29,11 @@ public class User implements UserDetails { // UserDetail을 상속받아 인증 
     @Column(name = "password")
     private String password;
 
+
     @Builder
     public User(String username, String password, String auth) {
         this.username = username;
         this.password = password;
-
     }
 
     @Override // 권한반환
