@@ -38,7 +38,12 @@ public class UserService {
 
 
         }
-        return tokenProvider.generateToken(user1, Duration.ofHours(1));
+        return tokenProvider.generateToken(user1, Duration.ofDays(14));
+    }
+
+    public User findById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("not user found : " + id));
     }
 
     @Bean

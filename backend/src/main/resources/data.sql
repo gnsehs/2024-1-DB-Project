@@ -1,5 +1,4 @@
 
-
 INSERT INTO company (name, nation, founding_date, ceo) VALUES
 ('343 INDUSTRIES', '미국', '2007-07-06', '피에르 힌트즈'),
 ('BETHESDA GAME STUDIOS', '미국', '2001-10-01', '토드 하워드'),
