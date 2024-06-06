@@ -50,7 +50,7 @@ public class ArticleActivity extends AppCompatActivity {
                 int gameId = selectedGame.getGame_id();
 
                 try {
-                    Article article = new Article(title, content, gameId);
+                    Article article = new Article(title, content, gameId, "임시의 값");
                     sendPostRequest(article);
                 } catch (NumberFormatException e) {
                     Toast.makeText(ArticleActivity.this, "유효한 Game ID를 입력해주세요.", Toast.LENGTH_SHORT).show();

@@ -11,6 +11,7 @@ import com.example.frontend.Data.Gamecompanys;
 import com.example.frontend.Data.Games;
 import com.example.frontend.JsonPlaceHolderApi;
 import com.example.frontend.R;
+import com.example.frontend.RetrofitBuilder;
 
 import java.util.List;
 import retrofit2.Call;
@@ -67,7 +68,7 @@ public class DbActivity extends AppCompatActivity {
     }
 
     private void fetchGames() {
-        Call<List<Games>> callgame = jsonPlaceHolderApi.getGames();
+        Call<List<Games>> callgame = RetrofitBuilder.INSTANCE.getApi().getGames();
         callgame.enqueue(new Callback<List<Games>>() {
             @Override
             public void onResponse(Call<List<Games>> callgame, Response<List<Games>> response) {
@@ -97,7 +98,7 @@ public class DbActivity extends AppCompatActivity {
     }
 
     private void fetchGameCompanies() {
-        Call<List<Gamecompanys>> callcompany = jsonPlaceHolderApi.getGameCompanies();
+        Call<List<Gamecompanys>> callcompany = RetrofitBuilder.INSTANCE.getApi().getGameCompanies();
         callcompany.enqueue(new Callback<List<Gamecompanys>>() {
             @Override
             public void onResponse(Call<List<Gamecompanys>> callcompany, Response<List<Gamecompanys>> response) {
@@ -125,7 +126,7 @@ public class DbActivity extends AppCompatActivity {
     }
 
     private void fetchDevices() {
-        Call<List<Devices>> calldevice = jsonPlaceHolderApi.getDevices();
+        Call<List<Devices>> calldevice = RetrofitBuilder.INSTANCE.getApi().getDevices();
         calldevice.enqueue(new Callback<List<Devices>>() {
             @Override
             public void onResponse(Call<List<Devices>> callgame, Response<List<Devices>> response) {
