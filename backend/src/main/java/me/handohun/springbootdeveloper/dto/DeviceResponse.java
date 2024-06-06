@@ -9,6 +9,7 @@ import java.time.LocalDate;
 
 @Getter
 public class DeviceResponse {
+    final private Long  device_id;
     final private String device_name;
     final private String made_by;
     final private LocalDate release_date;
@@ -16,6 +17,7 @@ public class DeviceResponse {
     final private int exclusive_game_num;
 
     public DeviceResponse(Device device) {
+        this.device_id = device.getId();
         this.device_name = device.getDevice_name();
         this.made_by = device.getMade_by();
         this.release_date = device.getRelease_date();

@@ -12,7 +12,7 @@ import java.time.LocalDate;
 
 @Getter
 public class CompanyResponse {
-
+    private final Long company_id;
     private final String name;
     private final String nation;
     private final LocalDate founding_date;
@@ -24,6 +24,7 @@ public class CompanyResponse {
 
 
     public CompanyResponse(Company company) {
+        this.company_id = company.getId();
         this.name = company.getName();
         this.nation = company.getNation();
         this.founding_date = company.getFounding_date();
