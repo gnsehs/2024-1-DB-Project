@@ -2,19 +2,17 @@
     
     import android.os.Bundle
     import android.content.Intent
-    import android.util.Log
     import android.widget.Button
-    import android.widget.Toast
     import androidx.appcompat.app.AppCompatActivity
+    import com.example.frontend.Activity.Recycler.ArticleActivity
+    import com.example.frontend.Activity.Recycler.CompanyActivity
+    import com.example.frontend.Activity.Recycler.DeviceActivity
+    import com.example.frontend.Activity.Recycler.GameActivity
     import com.example.frontend.Data.Devices
     import com.example.frontend.Data.Gamecompanys
     import com.example.frontend.Data.Games
     import com.example.frontend.R
-    import com.example.frontend.RetrofitBuilder
-    import retrofit2.Call
-    import retrofit2.Callback
-    import retrofit2.Response
-    
+
     class MainActivity : AppCompatActivity() {
     
         private lateinit var gamesList: List<Games>
@@ -26,12 +24,24 @@
             setContentView(R.layout.activity_main)
 
             val signupButton: Button = findViewById(R.id.signupbutton)
+            val writeButton: Button = findViewById(R.id.writebutton)
+            val gameButton: Button = findViewById(R.id.gamebutton)
+            val deviceButton: Button = findViewById(R.id.devicebutton)
+            val companyButton: Button = findViewById(R.id.companybutton)
             val articleButton: Button = findViewById(R.id.articlebutton)
-            val dbButton: Button = findViewById(R.id.dbbutton)
-            val checkButton: Button = findViewById(R.id.checkbutton)
 
-            dbButton.setOnClickListener {
-                val intent = Intent(this@MainActivity, DbActivity::class.java)
+            gameButton.setOnClickListener {
+                val intent = Intent(this@MainActivity, GameActivity::class.java)
+                startActivity(intent)
+            }
+
+            companyButton.setOnClickListener {
+                val intent = Intent(this@MainActivity, CompanyActivity::class.java)
+                startActivity(intent)
+            }
+
+            deviceButton.setOnClickListener {
+                val intent = Intent(this@MainActivity, DeviceActivity::class.java)
                 startActivity(intent)
             }
     
@@ -40,13 +50,13 @@
                 startActivity(intent)
             }
     
-            articleButton.setOnClickListener {
-                val intent = Intent(this@MainActivity, ArticleActivity::class.java)
+            writeButton.setOnClickListener {
+                val intent = Intent(this@MainActivity, WriteActivity::class.java)
                 startActivity(intent)
             }
 
-            checkButton.setOnClickListener {
-                val intent = Intent(this@MainActivity, CheckActivity::class.java)
+            articleButton.setOnClickListener {
+                val intent = Intent(this@MainActivity, ArticleActivity::class.java)
                 startActivity(intent)
             }
         }

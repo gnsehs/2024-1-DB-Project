@@ -25,11 +25,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.DetailActivity"/>
-        <activity android:name=".Activity.DbActivity"/>
+        <activity android:name=".Activity.Detail.GameDetailActivity"/>
+        <activity android:name=".Activity.Detail.CompanyDetailActivity"/>
+        <activity android:name=".Activity.Detail.DeviceDetailActivity"/>
+        <activity android:name=".Activity.Detail.ArticleDetailActivity"/>
+        <activity android:name=".Activity.Recycler.GameActivity"/>
         <activity android:name=".Activity.SignupActivity"/>
-        <activity android:name=".Activity.ArticleActivity"/>
-        <activity android:name=".Activity.CheckActivity"/>
+        <activity android:name=".Activity.WriteActivity"/>
+        <activity android:name=".Activity.Recycler.ArticleActivity"/>
+        <activity android:name=".Activity.Recycler.CompanyActivity"/>
+        <activity android:name=".Activity.Recycler.DeviceActivity"/>
     </application>
 
 </manifest>

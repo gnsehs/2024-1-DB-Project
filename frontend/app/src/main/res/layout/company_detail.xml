@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/companyName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/companyNation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="국가"
+        android:textSize="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/companyName" />
+
+    <TextView
+        android:id="@+id/companyFoundingDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="설립일"
+        android:textSize="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/companyNation" />
+
+    <TextView
+        android:id="@+id/companyCEO"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CEO"
+        android:textSize="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/companyFoundingDate" />
+
+    <TextView
+        android:id="@+id/companyNumGames"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="게임 개수"
+        android:textSize="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/companyCEO" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

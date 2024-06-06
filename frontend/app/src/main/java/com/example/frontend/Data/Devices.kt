@@ -1,6 +1,7 @@
 package com.example.frontend.Data
 
 data class Devices(
+    val device_id : Int,
     val device_name : String,
     val made_by : String,
     val release_date : String,
