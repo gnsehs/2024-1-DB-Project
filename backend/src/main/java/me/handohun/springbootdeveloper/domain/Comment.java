@@ -29,8 +29,8 @@ public class Comment {
     private String content;
 
     @CreatedDate
-    @Column(name = "created_at")
-    private LocalDateTime createdAt; // test
+    @Column(name = "post_time")
+    private LocalDateTime postTime; // test
 
     @ManyToOne
     private Article article;

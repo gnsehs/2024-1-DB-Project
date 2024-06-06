@@ -2,9 +2,14 @@ package me.handohun.springbootdeveloper.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
+@EntityListeners(AuditingEntityListener.class)
 @Entity // 엔티티
 @Getter
 @Setter
@@ -24,6 +29,14 @@ public class Article {
 
     @Column(name = "author",nullable = false)
     private String author;
+
+    @CreatedDate // 엔티티가 생성될때 생성시간 지정
+    @Column(name = "post_time")
+    private LocalDateTime postTime;
+
+    @LastModifiedDate
+    @Column(name = "modified_time")
+    private LocalDateTime modifiedTime;
 
     @ManyToOne
     @JoinColumn(name = "game_id")
