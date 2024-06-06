@@ -44,6 +44,17 @@ public class BlogApiController {
         return ResponseEntity.ok().body(articles);
     }
 
+    @GetMapping("/api/article")
+    public ResponseEntity<List<ArticleResponse>> findAllArticlesByGame(@RequestParam("game_id") Long game_id) {
+        List<ArticleResponse> articles = blogService.findAllByGameId(game_id)
+                .stream()
+                .map(ArticleResponse::new)
+                .toList();
+
+        return ResponseEntity.ok().body(articles);
+    }
+
+
     @GetMapping("/api/articles/{id}") // 이름이 파라미터 이름과 같다면 자동 매칭
     public ResponseEntity<ArticleResponse> findArticle(@PathVariable Long id) {
         Article article = blogService.findById(id);
@@ -51,6 +62,8 @@ public class BlogApiController {
         return ResponseEntity.ok()
                 .body(new ArticleResponse(article));
     }
+
+
 
     /*
     @PathVariable URL 에서 값을 가져오는 애너테이션
@@ -89,5 +102,7 @@ public class BlogApiController {
 
         return ResponseEntity.ok().body(commentResponses);
     }
+
+
 
 }

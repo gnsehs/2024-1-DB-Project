@@ -4,7 +4,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.handohun.springbootdeveloper.domain.Article;
 import me.handohun.springbootdeveloper.domain.Comment;
-import me.handohun.springbootdeveloper.domain.Game;
 import me.handohun.springbootdeveloper.dto.AddArticleRequest;
 import me.handohun.springbootdeveloper.dto.AddCommentRequest;
 import me.handohun.springbootdeveloper.dto.UpdateArticleRequest;
@@ -45,6 +44,10 @@ public class BlogService {
     public Article findById(long id) {
         return blogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
+    }
+
+    public List<Article> findAllByGameId(Long game_id) {
+        return blogRepository.findAllByGame_id(game_id);
     }
 
     public void delete(long id) {
