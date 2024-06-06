@@ -1,65 +1,68 @@
 package com.example.frontend.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.frontend.Adapter.CompanyAdapter;
+import com.example.frontend.Adapter.DeviceAdapter;
 import com.example.frontend.Data.Devices;
 import com.example.frontend.Data.Gamecompanys;
 import com.example.frontend.Data.Games;
+import com.example.frontend.Adapter.GameAdapter;
 import com.example.frontend.JsonPlaceHolderApi;
 import com.example.frontend.R;
 import com.example.frontend.RetrofitBuilder;
 
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DbActivity extends AppCompatActivity {
-    private TextView textViewResult;
-    private Button GameButton;
-    private Button CompanyButton;
-    private Button DeviceButton;
+    private RecyclerView recyclerView;
+    private Button gameButton;
+    private Button companyButton;
+    private Button deviceButton;
 
     private JsonPlaceHolderApi jsonPlaceHolderApi;
+    private GameAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.db);
 
-        textViewResult = findViewById(R.id.text_view_result);
-        GameButton = findViewById(R.id.gamebutton);
-        CompanyButton = findViewById(R.id.companybutton);
-        DeviceButton = findViewById(R.id.devicebutton);
+        recyclerView = findViewById(R.id.recycler_view);
+        gameButton = findViewById(R.id.gamebutton);
+        companyButton = findViewById(R.id.companybutton);
+        deviceButton = findViewById(R.id.devicebutton);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8080/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
 
-        jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
-
-        GameButton.setOnClickListener(new View.OnClickListener() {
+        gameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 fetchGames();
             }
         });
 
-        CompanyButton.setOnClickListener(new View.OnClickListener() {
+        companyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 fetchGameCompanies();
             }
         });
 
-        DeviceButton.setOnClickListener(new View.OnClickListener() {
+        deviceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 fetchDevices();
@@ -68,89 +71,94 @@ public class DbActivity extends AppCompatActivity {
     }
 
     private void fetchGames() {
-        Call<List<Games>> callgame = RetrofitBuilder.INSTANCE.getApi().getGames();
-        callgame.enqueue(new Callback<List<Games>>() {
+        Call<List<Games>> call = RetrofitBuilder.INSTANCE.getApi().getGames();
+        call.enqueue(new Callback<List<Games>>() {
             @Override
-            public void onResponse(Call<List<Games>> callgame, Response<List<Games>> response) {
+            public void onResponse(Call<List<Games>> call, Response<List<Games>> response) {
                 if (!response.isSuccessful()) {
-                    textViewResult.setText("Code: " + response.code());
+                    Toast.makeText(DbActivity.this, "Code: " + response.code(), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                List<Games> gamesList = response.body();
-                textViewResult.setText(""); // Clear previous content
-                for (Games game : gamesList) {
-                    String content = "";
-                    content += "이름: " + game.getGame_name() + "\n";
-                    content += "출시일: " + game.getRelease_date() + "\n";
-                    content += "제조회사: " + game.getMade_by() + "\n";
-                    content += "연령제한: " + game.getAge_rating() + "\n";
-                    content += "독점작 여부: " + game.getExclusive() + "\n\n";
-                    textViewResult.append(content);
-                }
+                List<Games> games = response.body();
+                adapter = new GameAdapter(games);
+                adapter.setOnItemClickListener(new GameAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int gameId) {
+                        Intent intent = new Intent(DbActivity.this, DetailActivity.class);
+                        intent.putExtra("GAME_ID", gameId+1);
+                        startActivity(intent);
+                    }
+                });
+                adapter.notifyDataSetChanged();
+                recyclerView.setAdapter(adapter);
             }
 
             @Override
             public void onFailure(Call<List<Games>> call, Throwable t) {
-                textViewResult.setText(t.getMessage());
+                Toast.makeText(DbActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void fetchGameCompanies() {
-        Call<List<Gamecompanys>> callcompany = RetrofitBuilder.INSTANCE.getApi().getGameCompanies();
-        callcompany.enqueue(new Callback<List<Gamecompanys>>() {
+        Call<List<Gamecompanys>> call = RetrofitBuilder.INSTANCE.getApi().getGameCompanies();
+        call.enqueue(new Callback<List<Gamecompanys>>() {
             @Override
-            public void onResponse(Call<List<Gamecompanys>> callcompany, Response<List<Gamecompanys>> response) {
+            public void onResponse(Call<List<Gamecompanys>> call, Response<List<Gamecompanys>> response) {
                 if (!response.isSuccessful()) {
-                    textViewResult.setText("Code: " + response.code());
+                    Toast.makeText(DbActivity.this, "Code: " + response.code(), Toast.LENGTH_SHORT).show();
                     return;
                 }
-                List<Gamecompanys> gameCompanies = response.body();
-                textViewResult.setText(""); // Clear previous content
-                for (Gamecompanys company : gameCompanies) {
-                    String content = "";
-                    content += "이름: " + company.getName() + "\n";
-                    content += "국가: " + company.getNation() + "\n";
-                    content += "설립일: " + company.getFounding_date() + "\n";
-                    content += "CEO: " + company.getCeo() + "\n";
-                    content += "만든 게임 수: " + company.getNumGames() + "\n\n";
-                    textViewResult.append(content);
-                }
+
+                List<Gamecompanys> companies = response.body();
+                //adapter = new CompanyAdapter(companies);
+                adapter.setOnItemClickListener(new GameAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int companyId) {
+                        Intent intent = new Intent(DbActivity.this, DetailActivity.class);
+                        intent.putExtra("GAME_ID", companyId+1);
+                        startActivity(intent);
+                    }
+                });
+                adapter.notifyDataSetChanged();
+                recyclerView.setAdapter(adapter);
             }
+
             @Override
             public void onFailure(Call<List<Gamecompanys>> call, Throwable t) {
-                textViewResult.setText(t.getMessage());
+                Toast.makeText(DbActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void fetchDevices() {
-        Call<List<Devices>> calldevice = RetrofitBuilder.INSTANCE.getApi().getDevices();
-        calldevice.enqueue(new Callback<List<Devices>>() {
+        Call<List<Devices>> call = RetrofitBuilder.INSTANCE.getApi().getDevices();
+        call.enqueue(new Callback<List<Devices>>() {
             @Override
-            public void onResponse(Call<List<Devices>> callgame, Response<List<Devices>> response) {
+            public void onResponse(Call<List<Devices>> call, Response<List<Devices>> response) {
                 if (!response.isSuccessful()) {
-                    textViewResult.setText("Code: " + response.code());
+                    Toast.makeText(DbActivity.this, "Code: " + response.code(), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                List<Devices> devicesList = response.body();
-                textViewResult.setText(""); // Clear previous content
-                for (Devices device : devicesList) {
-                    String content = "";
-                    content += "이름: " + device.getDevice_name() + "\n";
-                    content += "출시일: " + device.getRelease_date() + "\n";
-                    content += "제조사: " + device.getMade_by() + "\n";
-                    content += "호환 게임 수: " + device.getNum_game() + "\n";
-                    content += "독점작 수: " + device.getExclusive_game_num() + "\n\n";
-                    textViewResult.append(content);
-                }
+                List<Devices> devices = response.body();
+                //adapter = new DeviceAdapter(devices);
+                adapter.setOnItemClickListener(new GameAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int deviceId) {
+                        Intent intent = new Intent(DbActivity.this, DetailActivity.class);
+                        intent.putExtra("GAME_ID", deviceId+1);
+                        startActivity(intent);
+                    }
+                });
+                adapter.notifyDataSetChanged();
+                recyclerView.setAdapter(adapter);
             }
 
             @Override
             public void onFailure(Call<List<Devices>> call, Throwable t) {
-                textViewResult.setText(t.getMessage());
+                Toast.makeText(DbActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

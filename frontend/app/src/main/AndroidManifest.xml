@@ -25,10 +25,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.LoginActivity"/>
+        <activity android:name=".Activity.DetailActivity"/>
         <activity android:name=".Activity.DbActivity"/>
         <activity android:name=".Activity.SignupActivity"/>
         <activity android:name=".Activity.ArticleActivity"/>
+        <activity android:name=".Activity.CheckActivity"/>
     </application>
 
 </manifest>

@@ -28,6 +28,7 @@
             val signupButton: Button = findViewById(R.id.signupbutton)
             val articleButton: Button = findViewById(R.id.articlebutton)
             val dbButton: Button = findViewById(R.id.dbbutton)
+            val checkButton: Button = findViewById(R.id.checkbutton)
 
             dbButton.setOnClickListener {
                 val intent = Intent(this@MainActivity, DbActivity::class.java)
@@ -41,6 +42,11 @@
     
             articleButton.setOnClickListener {
                 val intent = Intent(this@MainActivity, ArticleActivity::class.java)
+                startActivity(intent)
+            }
+
+            checkButton.setOnClickListener {
+                val intent = Intent(this@MainActivity, CheckActivity::class.java)
                 startActivity(intent)
             }
         }

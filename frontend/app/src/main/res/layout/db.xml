@@ -7,18 +7,16 @@
     android:padding="8dp"
     tools:context=".Activity.DbActivity">
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="524dp"
+        android:layout_height="617dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:id="@+id/text_view_result"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </androidx.core.widget.NestedScrollView>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/companybutton"
+        app:layout_constraintVertical_bias="0.684"
+        tools:listitem="@layout/recycler_item" />
 
     <Button
         android:id="@+id/devicebutton"
