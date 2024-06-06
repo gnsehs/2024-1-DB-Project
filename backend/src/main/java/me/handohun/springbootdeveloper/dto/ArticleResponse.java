@@ -13,6 +13,7 @@ public class ArticleResponse {
     private final String title;
     private final String content;
     private final String game_name;
+    private final Long game_id;
     private final String author;
     private final String post_time;
     private final String modified_time;
@@ -25,6 +26,7 @@ public class ArticleResponse {
 
         this.author = article.getAuthor();
         this.title = article.getTitle();
+        this.game_id = article.getGame().getId();
         this.content = article.getContent();
         this.game_name = article.getGame().getGame_name();
         if (article.getComments() == null) {

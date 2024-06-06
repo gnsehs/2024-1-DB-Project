@@ -31,7 +31,7 @@ public class UserService {
     }
 
     public String login(AddUserRequest user) {
-        User user1 = userRepository.findByUsername(user.getUsername())
+        User user1 = userRepository.findByUsername(user.getUsername()) // db에 저장된 user
                 .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 E-MAIL 입니다."));
         if (!(bCryptPasswordEncoder.matches(user.getPassword(), user1.getPassword()))) {
             throw new IllegalArgumentException("Wrong PassWord");
