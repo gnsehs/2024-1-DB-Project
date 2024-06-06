@@ -38,7 +38,7 @@ class ArticleAdapter(private val items: List<Article>) : RecyclerView.Adapter<Ar
         }
 
         fun bind(item: Article) {
-            name.text = item.content
+            name.text = item.title
         }
 
         override fun onClick(v: View?) {

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.frontend.Activity.Detail.DeviceDetailActivity;
 import com.example.frontend.Activity.Detail.GameDetailActivity;
 import com.example.frontend.Adapter.DeviceAdapter;
 import com.example.frontend.Data.Devices;
@@ -51,7 +52,7 @@ public class DeviceActivity extends AppCompatActivity {
                 adapter.setOnItemClickListener(new DeviceAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(int deviceId) {
-                        Intent intent = new Intent(DeviceActivity.this, GameDetailActivity.class);
+                        Intent intent = new Intent(DeviceActivity.this, DeviceDetailActivity.class);
                         intent.putExtra("ID", deviceId+1);
                         startActivity(intent);
                     }

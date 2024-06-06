@@ -50,6 +50,8 @@ public class ArticleDetailActivity extends AppCompatActivity {
         commentEditText = findViewById(R.id.commentEditText);
         commentbutton = findViewById(R.id.commentbutton);
 
+        reloadbutton = findViewById(R.id.reloadbutton);
+
         // 인텐트로부터 게시물 ID를 받아옴
         int articleId = getIntent().getIntExtra("ID", -1);
 

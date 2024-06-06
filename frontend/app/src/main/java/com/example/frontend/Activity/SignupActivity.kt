@@ -95,7 +95,7 @@ class SignupActivity : AppCompatActivity() {
                     val loginResponse = response.body()
                     if (loginResponse != null) {
                         App.prefs.token = loginResponse.accessToken
-                        Toast.makeText(this@SignupActivity, "로그인 성공"+loginResponse.accessToken, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@SignupActivity, "로그인 성공", Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(this@SignupActivity, "로그인 응답이 없습니다.", Toast.LENGTH_SHORT).show()
                     }
